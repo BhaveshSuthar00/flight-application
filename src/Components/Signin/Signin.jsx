@@ -6,12 +6,15 @@ import {
     Input,
     Button,
     Select,
-    useToast
+    useToast,
+    InputGroup,
+    InputRightElement
 } from '@chakra-ui/react'
 import axios from 'axios';
-import React from 'react'
+import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 const Signin = () => {
+    const [show, setShow] = useState(false);
     const navigate = useNavigate();
     const toast = useToast();
     const handleSubmit = (e)=>{
@@ -21,9 +24,8 @@ const Signin = () => {
             lastName : document.getElementById('lastName').value,
             email : document.getElementById('email').value,
             password : document.getElementById('password').value,
-            type : document.getElementById('type').value
         }
-        axios.post('https://dog-server-application.herokuapp.com/user/post', obj)
+        axios.post('http://localhost:2200/user/post', obj)
         .then((res)=>{
             toast({
                 description : "your new account is created successfully",
@@ -43,7 +45,6 @@ const Signin = () => {
             document.getElementById('lastName').value = null
             document.getElementById('email').value = null
             document.getElementById('password').value = null
-            document.getElementById('type').value = null
     }
   return (
     <Container>
@@ -63,16 +64,16 @@ const Signin = () => {
                     <FormLabel htmlFor='email'>Enter email</FormLabel>
                     <Input id='email' type='email' placeholder='E-mail'  required={true}/>
                 </FormControl> 
-                <FormControl mt={5}>
-                    <FormLabel htmlFor='password'>Enter password</FormLabel>
-                    <Input id='password' type='password' placeholder='Password'  required={true}/>
-                </FormControl> 
-                <FormControl mt={5}>
-                    <FormLabel htmlFor='type'>Category</FormLabel>
-                    <Select id='type' placeholder='Select type'  required={true}>
-                        <option value='house-holder'>Care-taker</option>
-                        <option value='user'>User</option>
-                    </Select>
+                <FormControl mt={4}>
+                <FormLabel htmlFor='password'>Password</FormLabel>
+                <InputGroup>
+                    <Input id='password' type={show ? 'text' : 'password'} />
+                    <InputRightElement width='4.5rem'>
+                    <Button h='1.75rem' size='sm' variant="ghost" onClick={()=> setShow(!show)}>
+                    {show ? 'Hide' : 'Show'}
+                    </Button>
+                    </InputRightElement>
+                </InputGroup>
                 </FormControl>
                 <Button type='submit' w="full" mt={4} variant='solid' colorScheme="teal" p={4}>
                     Submit

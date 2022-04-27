@@ -9,7 +9,7 @@ const error = ()=>({type : ERROR})
 const apiCallLoggedIn = (data) =>{
     return async function(dispatch){
         try {
-            let data2 = await axios.post('https://dog-server-application.herokuapp.com/user/login', data);
+            let data2 = await axios.post('http://localhost:2200/user/login', data);
             if(data2.data){
                 localStorage.setItem('userData', JSON.stringify(data2.data))
                 dispatch(userLog(data2.data))
@@ -25,7 +25,8 @@ const apiCallLoggedIn = (data) =>{
 const apiCallLoggedOut = () =>{
     return async function(dispatch){
         try {
-            // let data2 = await axios.get('https://dog-server-application.herokuapp.com/signOut' );
+            let data2 = await axios.get('http://localhost:2200/signOut');
+            console.log(data2)
             window.localStorage.removeItem('userData');
             dispatch(logOut())
         }
