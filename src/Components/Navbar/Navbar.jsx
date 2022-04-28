@@ -28,7 +28,7 @@ const Navbar = () => {
     >
         <Box>
             <Text ml={5} fontWeight="500">
-                Bog app
+                Flight Mode
             </Text>
         </Box>
         <Spacer />

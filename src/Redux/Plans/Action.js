@@ -4,11 +4,11 @@ const PLANSADD = "PLANSADD";
 const LOADING = 'LOADING';
 const planAdd = (data) => ({type : PLANSADD, payload : data});
 const loading = (value)=> ({type : LOADING, payload : value});
-const apiCallAdd = () => {
+const apiCallAdd = (id) => {
     return async (dispatch)=>{
         try {
             dispatch(loading(true));
-            const req = axios.get('http://localhost:2200/plan/all');
+            const req = await axios.get(`http://localhost:2200/plan/${id}`);
             dispatch(planAdd(req.data));
         }
         catch (err) {
