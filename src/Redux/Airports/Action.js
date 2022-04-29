@@ -8,7 +8,7 @@ const apiCallAdd = ()=>{
     return async (dispatch)=>{
         try {
             dispatch(loading(true));
-            const req = await axios.get('http://localhost:2200/airport/all');
+            const req = await axios.get('https://flight-server-side.herokuapp.com/airport/all');
             dispatch(addAirport(req.data))
         }
         catch(err) {

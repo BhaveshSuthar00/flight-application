@@ -1,15 +1,11 @@
-import { Box, Button, Flex, Spacer, Text } from '@chakra-ui/react'
+import { Box, Flex, Spacer, Text } from '@chakra-ui/react'
 import React from 'react'
 import {ColorModeSwitcher} from '../../ColorModeSwitcher'
-import { Link } from 'react-router-dom'
-import {useSelector, useDispatch} from 'react-redux'
-import { apiCallLoggedOut } from '../../Redux/Login/Action'
-import { useNavigate } from 'react-router-dom'
+import { useMediaQuery } from "@chakra-ui/react"
 import MobileDrawer from './MobileDrawer'
+import FullSize from './FullSize'
 const Navbar = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const {loggedIn, auth} = useSelector((store)=> store.login);
+    const [isMobile] = useMediaQuery("(max-width: 768px)") 
     return (
     <Flex  
     top={0}
@@ -22,7 +18,7 @@ const Navbar = () => {
     backdropFilter='auto' 
     backdropBlur='8px'
     p={[0,3]} 
-    w="full"
+    w="100%"
     position="sticky"
     fontSize={21}
     >
@@ -33,62 +29,9 @@ const Navbar = () => {
         </Box>
         <Spacer />
         <ColorModeSwitcher />
-        <Box
-            display={{base : 'flex',lg : "flex", md : "none", sm : 'none'}}
-        >
-            <Link to='/'>
-                <Button mr={3} variant="ghost"
-                    colorScheme="teal"
-                >
-                    Home
-                </Button>
-            </Link>
-            {
-                !loggedIn ?
-                <Link to='/signin'>
-                <Button mr={3} variant="ghost"
-                    colorScheme="teal"
-                >
-                    Sign in
-                </Button>
-                </Link> : null
-            }
-            {
-                !loggedIn ? 
-                <Link to='/login'>
-                <Button mr={3} variant="ghost"
-                    colorScheme="teal"
-                >
-                    Login
-                </Button>
-                </Link> :
-                <Button
-                mr={3} variant="ghost"
-                colorScheme="teal"
-                onClick={()=>{
-                    dispatch(apiCallLoggedOut())
-                    navigate('/')
-                }}
-                >
-                    Log out
-                </Button>
-            }
-            {
-                auth === 'Permission granted for all' || auth === 'Permission granted for add house' ?
-                <Link to='/listing/create'>
-                <Button mr={3} variant="ghost"
-                    colorScheme="teal"
-                >
-                    Add House
-                </Button>
-                </Link> : null
-            }
-        </Box>
-        <Box
-            display={{base : 'none',lg : "none", md : "flex", sm : 'flex'}}
-        >
-            <MobileDrawer />
-        </Box>
+        {
+            isMobile ? <Box> <MobileDrawer /> </Box>: <FullSize />
+        }
     </Flex>
     )
 }

@@ -9,7 +9,7 @@ const error = ()=>({type : ERROR})
 const apiCallLoggedIn = (data) =>{
     return async function(dispatch){
         try {
-            let data2 = await axios.post('http://localhost:2200/user/login', data);
+            let data2 = await axios.post('https://flight-server-side.herokuapp.com/user/login', data);
             if(data2.data){
                 localStorage.setItem('userData', JSON.stringify(data2.data))
                 dispatch(userLog(data2.data))

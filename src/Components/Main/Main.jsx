@@ -5,7 +5,6 @@ import {
   Box,
   Image,
   Text,
-
 } from '@chakra-ui/react'
 import React, {useEffect} from 'react'
 import { apiCallAdd } from '../../Redux/Airports/Action'
@@ -28,14 +27,16 @@ const Main = () => {
   
   return (
     <>
-      <Stack direction={['column', 'row']}>
+      <Stack  
+      direction={['column','column', 'column', 'row', 'row']}
+      >
         {
           airports && airports.map((item)=>(
               <Link to={`/plans/${item._id}`} key={item._id}>
                 <Box h="300px" w="300px" boxShadow='lg' p={4} borderRadius="10px">
                   <Image h="60%"  src={item.image}  borderRadius="10px" alt='dd'/>
-                  <Box h="25%" overflow='hidden' fontSize="23px" justify="center" mt={4}>
-                    <Stack direction={['column', 'row']}  justify="center">
+                  <Box h="25%" overflow='hidden' fontSize="20px" justify="center" mt={4}>
+                    <Stack direction={['column','column', 'row', 'row', 'row']}  justify="center">
                       <Text>{item.city},</Text>
                       <Text>{item.country}</Text>
                     </Stack>
